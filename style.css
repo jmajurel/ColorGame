@@ -1,0 +1,20 @@
+#header {
+  text-align: center;
+  background: rgb(0, 161, 255);
+  color: white;
+  padding: 10px 0px;
+}
+
+.navbar-nav #menu, .difficulty { 
+ background: white;
+ color: rgb(0, 161, 255);
+ border: 0px;
+}
+
+.navbar {
+  background: white;
+}
+body {
+  background: rgb(20,20,20);
+}
+
