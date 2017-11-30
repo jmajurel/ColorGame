@@ -2,6 +2,7 @@ var redcolor = document.querySelector("#red-color");
 var greencolor = document.querySelector("#green-color");
 var bluecolor = document.querySelector("#blue-color");
 var menu = document.getElementById("menu");
+var messageInd = document.getElementById("message");
 
 /*
 * Return a random number between two values inclusive
@@ -52,6 +53,11 @@ function updateGameRoom(newColor) {
     count++;
   });
 }
+
+function updateMessage(newMessage) {
+  messageInd.textContent = String(newMessage); 
+}
+
 menu.addEventListener("click", function(){
   //Generate new color
   var newColor = getRandomColor();
@@ -60,5 +66,5 @@ menu.addEventListener("click", function(){
   //update gameroom
   updateGameRoom(newColor); 
   //update message
-
+  updateMessage("");
 });
