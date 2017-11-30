@@ -5,6 +5,23 @@ var menu = document.getElementById("menu");
 var messageInd = document.getElementById("message");
 var easymodebtn = document.querySelector("#easy-mode");
 var hardmodebtn = document.querySelector("#hard-mode");
+var colorSquares = document.querySelectorAll('.color:not(.invisible)'); 
+var header = document.getElementById("header");
+var gameMode = "hard";
+
+var defaultColor = {
+  red: 0,
+  green: 161,
+  blue: 255 
+};
+
+var guessColor = getRandomColor();
+setupGame();
+
+function convertColorObjToRGB(color) {
+  return `rgb(${color.red}, ${color.green}, ${color.blue})`; 
+};
+
 /*
 * Return a random number between two values inclusive
 */
@@ -26,40 +43,54 @@ function getRandomColorElement() {
  * The function will return a color object obtaining the three elements Red, Green and Blue
 */
 function getRandomColor() {
-  var randomColor = {
+  return {
     red: getRandomColorElement(),
     green: getRandomColorElement(),
     blue: getRandomColorElement()
   };
-  return randomColor; 
 };
 
 /*
 * Update the Color Indicator
 */
-function updateIndicator(newColor) {
-  redcolor.textContent = newColor.red;
-  greencolor.textContent = newColor.green;
-  bluecolor.textContent = newColor.blue;
+function updateIndicator(guessColor) {
+  redcolor.textContent = guessColor.red;
+  greencolor.textContent = guessColor.green;
+  bluecolor.textContent = guessColor.blue;
 };
 
 /*
  * Update the Color square in the game room
 */
-function updateGameRoom(newColor) {
+function updateGameRoom(guessColor) {
+
   var colorSquares = document.querySelectorAll('.color:not(.invisible)'); 
-  var randomLocation = getRandomIntInclusive(0,colorSquares.length-1);
+  var randomLocation = getRandomIntInclusive(0, colorSquares.length-1);
   var count = 0;
   colorSquares.forEach(function(square){
     if(count === randomLocation) {
-      square.style.background = `rgb(${newColor.red}, ${newColor.green}, ${newColor.blue}`; 
+      square.style.background = convertColorObjToRGB(guessColor);
     }
     else{
       var randColor = getRandomColor(); 
-      square.style.background = `rgb(${randColor.red}, ${randColor.green}, ${randColor.blue}`; 
+      square.style.background = convertColorObjToRGB(randColor);
     }
     count++;
   });
+};
+
+function initalizationHeader() {
+   header.style.background = convertColorObjToRGB(defaultColor);
+}
+
+function initalizationGameRoom(mode) {
+  var colorSquares = document.querySelectorAll(".color"); 
+  var count = colorSquares.length;
+  if(mode === "easy") {
+    easyMode();  
+  } else {
+    hardMode();
+  };
 };
 
 /*
@@ -69,33 +100,79 @@ function updateMessage(newMessage) {
   messageInd.textContent = String(newMessage); 
 };
 
-function newGame() {
+function setupGame() {
+  menu.textContent = "NEW COLORS";
+  //Initialization Header
+  initalizationHeader();
+  //Initialisation
+  initalizationGameRoom(gameMode);
   //Generate new color
-  var newColor = getRandomColor();
+  guessColor = getRandomColor();
   //update indicator
-  updateIndicator(newColor);
+  updateIndicator(guessColor);
   //update gameroom
-  updateGameRoom(newColor); 
+  updateGameRoom(guessColor); 
   //update message
   updateMessage("");
 
 };
 
-menu.addEventListener("click", newGame);
+function success(rgb) {
+  updateMessage("Well Done!");
+  header.style.background = rgb; 
+  var colorSquares = document.querySelectorAll(".color"); 
+  colorSquares.forEach( function(square) {
+    square.classList.remove("invisible"); 
+    square.style.background = rgb;
+    square.classList.add("disabled");
+  });
+};
 
-easymodebtn.addEventListener("click", function() {
+function easyMode() {
   var colorSquares = document.querySelectorAll(".color"); 
   for(var i = 3; i < colorSquares.length; i++) {
     colorSquares[i].classList.add("invisible") ;
   };
-  newGame();
-}); 
+  gameMode = "easy";
+};
 
-hardmodebtn.addEventListener("click", function() {
+function hardMode() {
   var colorSquares = document.querySelectorAll(".color"); 
   for(var i = 3; i < colorSquares.length; i++) {
     colorSquares[i].classList.remove("invisible") ;
   };
-  newGame();
+  gameMode = "hard";
+};
+
+function lost(square) {
+  updateMessage("Try Again");
+  square.classList.add("invisible");
+};
+
+function game() {
+  var rgb = convertColorObjToRGB(guessColor); 
+  if(this.style.background == rgb){
+    success(rgb);
+  }
+  else if(this.style.background != rgb){
+    lost(this);
+  }; 
+  menu.textContent = "PLAY AGAIN";
+};
+
+menu.addEventListener("click", setupGame);
+
+easymodebtn.addEventListener("click", function() {
+  easyMode();
+  setupGame();
+});
+
+hardmodebtn.addEventListener("click", function() {
+  hardMode(); 
+  setupGame();
+});
+
+colorSquares.forEach(function(square) {
+  square.addEventListener("click", game);
 }); 
 
