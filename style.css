@@ -9,28 +9,25 @@ body {
   padding: 10px 0px;
 }
 
-.navbar-nav #menu, .difficulty { 
- background: white;
+.btn { 
+ background: none;
  color: rgb(0, 161, 255);
- border: 0px;
+ border: none;
 }
 
 .navbar {
   background: white;
-  padding-top: 0px;
-  padding-bottom: 0px;
+  padding: 0 20%;
 }
 
 #gameroom {
-  padding: 5%;
+  margin-top: 5%;
 }
 
-
-/*.color {
-  margin: 1%;
-  padding: 5%;
-  max-width: 20%;
-}*/
+.color {
+  min-height: 180px;
+  border-radius: 20px;
+}
 
 #color-1 {
   background: rgb(200, 50, 25);
@@ -55,3 +52,4 @@ body {
 #color-6 {
   background: rgb(10, 20, 10);
 }
+

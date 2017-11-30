@@ -8,17 +8,22 @@
   <body>
     <div id="header" class="container-fluid">
       <h4>THE GREAT</h4>
-      <h1>RGB(211, 206, 13)</h1>  
+      <h1>RGB(<span id="red-color">211</span>, <span id="green-color">206</span>, <span id="blue-color">13</span>)</h1>  
       <h4>GUESSING GAME</h4>
     </div>
-    <div class="navbar navbar-expand-sm navbar-light justify-content-center">
+    <div class="navbar navbar-expand-sm navbar-light">
+      <div class="container">
       <ul class="navbar-nav">
 	<li class="nav-item">
 	  <button id="menu" type="button" class="btn btn-primary">NEW COLORS</button>
 	</li>
+      </ul>
+      <ul class="navbar-nav d-flex mx-auto">
 	<li class="nav-item navbar-text">
 	  Try Again!
 	</li>
+      </ul>
+      <ul class="navbar-nav">
 	<li class="nav-item">
           <div class="btn-group" data-toggle="buttons">
 	    <label class="btn btn-primary difficulty mb-0">
@@ -30,22 +35,23 @@
 	  </div>
 	</li>
       </ul>
+      </div>
     </div>
     <div id="gameroom" class="container">
       <div class="row justify-content-center">
-        <div id="color-1" class="col-sm-3 rounded color p-5 m-1">
+        <div id="color-1" class="col-sm-3 color m-1">
 	</div>
-        <div id="color-2" class="col-sm-3 rounded color p-5 m-1">
+        <div id="color-2" class="col-sm-3 color m-1">
 	</div>
-        <div id="color-3" class="col-sm-3 rounded color p-5 m-1">
+        <div id="color-3" class="col-sm-3 color m-1">
 	</div>
       </div>
       <div class="row justify-content-center">
-        <div id="color-4" class="col-sm-3 rounded color p-5 m-1">
+        <div id="color-4" class="col-sm-3 color m-1">
 	</div>
-        <div id="color-5" class="col-sm-3 rounded color p-5 m-1">
+        <div id="color-5" class="col-sm-3 color m-1">
 	</div>
-        <div id="color-6" class="col-sm-3 rounded color p-5 m-1">
+        <div id="color-6" class="col-sm-3 color m-1">
 	</div>
       </div>
     </div>
