@@ -130,15 +130,20 @@ function success(rgb) {
 
 function easyMode() {
   var colorSquares = document.querySelectorAll(".color"); 
-  for(var i = 3; i < colorSquares.length; i++) {
-    colorSquares[i].classList.add("invisible") ;
+  for(var i = 0; i < colorSquares.length; i++) {
+    if( i < 3) {
+      colorSquares[i].classList.remove("invisible") ;
+    }
+    else {
+      colorSquares[i].classList.add("invisible") ;
+    }
   };
   gameMode = "easy";
 };
 
 function hardMode() {
   var colorSquares = document.querySelectorAll(".color"); 
-  for(var i = 3; i < colorSquares.length; i++) {
+  for(var i = 0; i < colorSquares.length; i++) {
     colorSquares[i].classList.remove("invisible") ;
   };
   gameMode = "hard";
@@ -147,17 +152,6 @@ function hardMode() {
 function lost(square) {
   updateMessage("Try Again");
   square.classList.add("invisible");
-};
-
-function game() {
-  var rgb = convertColorObjToRGB(guessColor); 
-  if(this.style.background == rgb){
-    success(rgb);
-  }
-  else if(this.style.background != rgb){
-    lost(this);
-  }; 
-  menu.textContent = "PLAY AGAIN";
 };
 
 menu.addEventListener("click", setupGame);
@@ -173,6 +167,15 @@ hardmodebtn.addEventListener("click", function() {
 });
 
 colorSquares.forEach(function(square) {
-  square.addEventListener("click", game);
+  square.addEventListener("click", function() {
+    var rgb = convertColorObjToRGB(guessColor); 
+    if(square.style.background == rgb){
+      success(rgb);
+    }
+    else if(square.style.background != rgb){
+      lost(square);
+    }; 
+    menu.textContent = "PLAY AGAIN";
+  });
 }); 
 

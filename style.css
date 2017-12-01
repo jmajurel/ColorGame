@@ -27,7 +27,7 @@ body {
 .color {
   min-height: 180px;
   border-radius: 20px;
-  transition: visibility 3s 1s;
+  /*transition: visibility 3s 1s;*/
 }
 
 #color-1 {
